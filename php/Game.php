@@ -68,7 +68,7 @@ class Game {
 				$this->isGettingOutOfPenaltyBox = true;
 
 				echoln($this->players[$this->currentPlayer] . " is getting out of the penalty box");
-			$this->places[$this->currentPlayer] = $this->places[$this->currentPlayer] + $roll;
+			    $this->places[$this->currentPlayer] = $this->places[$this->currentPlayer] + $roll;
 				if ($this->places[$this->currentPlayer] > 11) $this->places[$this->currentPlayer] = $this->places[$this->currentPlayer] - 12;
 
 				echoln($this->players[$this->currentPlayer]
@@ -108,20 +108,18 @@ class Game {
 		if ($this->inPenaltyBox[$this->currentPlayer]){
 			if ($this->isGettingOutOfPenaltyBox) {
 				echoln("Answer was correct!!!!");
-			$this->purses[$this->currentPlayer]++;
+			    $this->purses[$this->currentPlayer]++;
 				echoln($this->players[$this->currentPlayer]
 						. " now has "
 						.$this->purses[$this->currentPlayer]
 						. " Gold Coins.");
 
 				$winner = $this->didPlayerWin();
-				$this->currentPlayer++;
-				if ($this->currentPlayer == count($this->players)) $this->currentPlayer = 0;
+                $this->setNextPlayer();
 
 				return $winner;
 			} else {
-				$this->currentPlayer++;
-				if ($this->currentPlayer == count($this->players)) $this->currentPlayer = 0;
+                $this->setNextPlayer();
 				return true;
 			}
 
@@ -130,27 +128,31 @@ class Game {
 		} else {
 
 			echoln("Answer was corrent!!!!");
-		$this->purses[$this->currentPlayer]++;
+		    $this->purses[$this->currentPlayer]++;
 			echoln($this->players[$this->currentPlayer]
 					. " now has "
 					.$this->purses[$this->currentPlayer]
 					. " Gold Coins.");
 
 			$winner = $this->didPlayerWin();
-			$this->currentPlayer++;
-			if ($this->currentPlayer == count($this->players)) $this->currentPlayer = 0;
+			$this->setNextPlayer();
 
 			return $winner;
 		}
 	}
 
-	function wrongAnswer(){
+    private function setNextPlayer()
+    {
+        $this->currentPlayer++;
+        if ($this->currentPlayer == count($this->players)) $this->currentPlayer = 0;
+    }
+
+    function wrongAnswer(){
 		echoln("Question was incorrectly answered");
 		echoln($this->players[$this->currentPlayer] . " was sent to the penalty box");
 	$this->inPenaltyBox[$this->currentPlayer] = true;
 
-		$this->currentPlayer++;
-		if ($this->currentPlayer == count($this->players)) $this->currentPlayer = 0;
+		$this->setNextPlayer();
 		return true;
 	}
 

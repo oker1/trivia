@@ -1,0 +1,9 @@
+<phpunit>
+    <logging>
+        <log type="coverage-clover" target="clover.xml" />
+    </logging>
+
+    <php>
+        <ini name="memory_limit" value="256M" />
+    </php>
+</phpunit>

@@ -59,7 +59,7 @@ class Game {
 		return count($this->players);
 	}
 
-	function  roll($roll) {
+	function  step($roll) {
 		echoln($this->players[$this->currentPlayer] . " is the current player");
 		echoln("They have rolled a " . $roll);
 
@@ -158,4 +158,27 @@ class Game {
 	function didPlayerWin() {
 		return !($this->purses[$this->currentPlayer] == 6);
 	}
+
+    public function run()
+    {
+        do {
+            $this->step($this->roll());
+
+            if ($this->answer()) {
+                $notAWinner = $this->wrongAnswer();
+            } else {
+                $notAWinner = $this->wasCorrectlyAnswered();
+            }
+        } while ($notAWinner);
+    }
+
+    private function answer()
+    {
+        return rand(0, 9) == 7;
+    }
+
+    private function roll()
+    {
+        return rand(0, 5) + 1;
+    }
 }

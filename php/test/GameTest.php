@@ -19,7 +19,7 @@ class GameTest extends PHPUnit_Framework_TestCase
             $aGame->add("Chet");
             $aGame->add("David");
 
-            $aGame->roll(1);
+            $aGame->step(1);
             $aGame->wrongAnswer();
         };
 
@@ -48,7 +48,7 @@ END;
             $aGame->add("Chet");
             $aGame->add("David");
 
-            $aGame->roll(1);
+            $aGame->step(1);
             $aGame->wasCorrectlyAnswered();
         };
 
@@ -77,11 +77,11 @@ END;
             $aGame->add("Chet");
             $aGame->add("David");
 
-            $aGame->roll(1);
+            $aGame->step(1);
             $aGame->wrongAnswer();
-            $aGame->roll(1);
+            $aGame->step(1);
             $aGame->wrongAnswer();
-            $aGame->roll(3);
+            $aGame->step(3);
             $aGame->wasCorrectlyAnswered();
         };
 
@@ -125,11 +125,11 @@ END;
             $aGame->add("Chet");
             $aGame->add("David");
 
-            $aGame->roll(1);
+            $aGame->step(1);
             $aGame->wrongAnswer();
-            $aGame->roll(1);
+            $aGame->step(1);
             $aGame->wrongAnswer();
-            $aGame->roll(2);
+            $aGame->step(2);
             $aGame->wasCorrectlyAnswered();
         };
 

@@ -171,18 +171,16 @@ class Game {
         $this->step($this->input->roll());
 
         if ($this->input->answer()) {
-            $notAWinner = $this->wrongAnswer();
-            return $notAWinner;
+            return $this->wasCorrectlyAnswered();
         } else {
-            $notAWinner = $this->wasCorrectlyAnswered();
-            return $notAWinner;
+            return $this->wrongAnswer();
         }
     }
 }
 
 class Input {
     public function answer(){
-        return rand(0, 9) == 7;
+        return rand(0, 9) != 7;
     }
 
     public function roll(){

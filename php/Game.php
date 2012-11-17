@@ -162,14 +162,21 @@ class Game {
     public function run()
     {
         do {
-            $this->step($this->input->roll());
-
-            if ($this->input->answer()) {
-                $notAWinner = $this->wrongAnswer();
-            } else {
-                $notAWinner = $this->wasCorrectlyAnswered();
-            }
+            $notAWinner = $this->round();
         } while ($notAWinner);
+    }
+
+    public function round()
+    {
+        $this->step($this->input->roll());
+
+        if ($this->input->answer()) {
+            $notAWinner = $this->wrongAnswer();
+            return $notAWinner;
+        } else {
+            $notAWinner = $this->wasCorrectlyAnswered();
+            return $notAWinner;
+        }
     }
 }
 

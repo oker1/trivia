@@ -102,18 +102,22 @@ class Game {
 
 
     function currentCategory() {
-        if ($this->places[$this->currentPlayer] == 0) return "Pop";
-        if ($this->places[$this->currentPlayer] == 1) return "Science";
-        if ($this->places[$this->currentPlayer] == 2) return "Sports";
-        if ($this->places[$this->currentPlayer] == 3) return "Rock";
-        if ($this->places[$this->currentPlayer] == 4) return "Pop";
-        if ($this->places[$this->currentPlayer] == 5) return "Science";
-        if ($this->places[$this->currentPlayer] == 6) return "Sports";
-        if ($this->places[$this->currentPlayer] == 7) return "Rock";
-        if ($this->places[$this->currentPlayer] == 8) return "Pop";
-        if ($this->places[$this->currentPlayer] == 9) return "Science";
-		if ($this->places[$this->currentPlayer] == 10) return "Sports";
-        if ($this->places[$this->currentPlayer] == 11) return "Rock";
+        $mapping = array(
+            'Pop',
+            'Science',
+            'Sports',
+            'Rock',
+            'Pop',
+            'Science',
+            'Sports',
+            'Rock',
+            'Pop',
+            'Science',
+            'Sports',
+            'Rock',
+        );
+
+        return $mapping[$this->places[$this->currentPlayer]];
 	}
 
 	function wasCorrectlyAnswered() {

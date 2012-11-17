@@ -108,38 +108,32 @@ class Game {
 		if ($this->inPenaltyBox[$this->currentPlayer]){
 			if ($this->isGettingOutOfPenaltyBox) {
 				echoln("Answer was correct!!!!");
-			    $this->purses[$this->currentPlayer]++;
-				echoln($this->players[$this->currentPlayer]
-						. " now has "
-						.$this->purses[$this->currentPlayer]
-						. " Gold Coins.");
-
-				$winner = $this->didPlayerWin();
-                $this->setNextPlayer();
-
-				return $winner;
+                return $this->correctAnswer();
 			} else {
                 $this->setNextPlayer();
 				return true;
 			}
 
-
-
 		} else {
 
 			echoln("Answer was corrent!!!!");
-		    $this->purses[$this->currentPlayer]++;
-			echoln($this->players[$this->currentPlayer]
-					. " now has "
-					.$this->purses[$this->currentPlayer]
-					. " Gold Coins.");
-
-			$winner = $this->didPlayerWin();
-			$this->setNextPlayer();
-
-			return $winner;
+            return $this->correctAnswer();
 		}
 	}
+
+    private function correctAnswer()
+    {
+        $this->purses[$this->currentPlayer]++;
+        echoln($this->players[$this->currentPlayer]
+            . " now has "
+            . $this->purses[$this->currentPlayer]
+            . " Gold Coins.");
+
+        $winner = $this->didPlayerWin();
+        $this->setNextPlayer();
+
+        return $winner;
+    }
 
     private function setNextPlayer()
     {

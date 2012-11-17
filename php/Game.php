@@ -14,6 +14,8 @@ class Game {
     var $sportsQuestions;
     var $rockQuestions;
 
+    private $questionsByCategory;
+
     var $currentPlayer = 0;
     var $isGettingOutOfPenaltyBox;
 
@@ -24,16 +26,18 @@ class Game {
         $this->purses  = array(0);
         $this->inPenaltyBox  = array(0);
 
-        $this->popQuestions = array();
-        $this->scienceQuestions = array();
-        $this->sportsQuestions = array();
-        $this->rockQuestions = array();
+        $this->questionsByCategory = array(
+            'pop' => array(),
+            'science' => array(),
+            'sports' => array(),
+            'rock' => array(),
+        );
 
         for ($i = 0; $i < 50; $i++) {
-			array_push($this->popQuestions, "Pop Question " . $i);
-			array_push($this->scienceQuestions, ("Science Question " . $i));
-			array_push($this->sportsQuestions, ("Sports Question " . $i));
-			array_push($this->rockQuestions, "Rock Question " . $i);
+			array_push($this->questionsByCategory['pop'], "Pop Question " . $i);
+			array_push($this->questionsByCategory['science'], ("Science Question " . $i));
+			array_push($this->questionsByCategory['sports'], ("Sports Question " . $i));
+			array_push($this->questionsByCategory['rock'], "Rock Question " . $i);
     	}
     }
 
@@ -94,13 +98,13 @@ class Game {
 
 	function  askQuestion() {
 		if ($this->currentCategory() == "Pop")
-			echoln(array_shift($this->popQuestions));
+			echoln(array_shift($this->questionsByCategory['pop']));
 		if ($this->currentCategory() == "Science")
-			echoln(array_shift($this->scienceQuestions));
+			echoln(array_shift($this->questionsByCategory['science']));
 		if ($this->currentCategory() == "Sports")
-			echoln(array_shift($this->sportsQuestions));
+			echoln(array_shift($this->questionsByCategory['sports']));
 		if ($this->currentCategory() == "Rock")
-			echoln(array_shift($this->rockQuestions));
+			echoln(array_shift($this->questionsByCategory['rock']));
 	}
 
 

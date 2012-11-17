@@ -15,6 +15,7 @@ class Game {
     var $rockQuestions;
 
     private $questionsByCategory;
+    private $categoryMapping;
 
     var $currentPlayer = 0;
     var $isGettingOutOfPenaltyBox;
@@ -31,6 +32,21 @@ class Game {
             'Science' => array(),
             'Sports' => array(),
             'Rock' => array(),
+        );
+
+        $this->categoryMapping = array(
+            'Pop',
+            'Science',
+            'Sports',
+            'Rock',
+            'Pop',
+            'Science',
+            'Sports',
+            'Rock',
+            'Pop',
+            'Science',
+            'Sports',
+            'Rock',
         );
 
         for ($i = 0; $i < 50; $i++) {
@@ -102,22 +118,7 @@ class Game {
 
 
     function currentCategory() {
-        $mapping = array(
-            'Pop',
-            'Science',
-            'Sports',
-            'Rock',
-            'Pop',
-            'Science',
-            'Sports',
-            'Rock',
-            'Pop',
-            'Science',
-            'Sports',
-            'Rock',
-        );
-
-        return $mapping[$this->places[$this->currentPlayer]];
+        return $this->categoryMapping[$this->places[$this->currentPlayer]];
 	}
 
 	function wasCorrectlyAnswered() {

@@ -27,13 +27,6 @@ class Game {
         $this->purses  = array(0);
         $this->inPenaltyBox  = array(0);
 
-        $this->questionsByCategory = array(
-            'Pop' => array(),
-            'Science' => array(),
-            'Sports' => array(),
-            'Rock' => array(),
-        );
-
         $this->categoryMapping = array(
             'Pop',
             'Science',
@@ -49,15 +42,22 @@ class Game {
             'Rock',
         );
 
-        for ($i = 0; $i < 50; $i++) {
-			array_push($this->questionsByCategory['Pop'], "Pop Question " . $i);
-			array_push($this->questionsByCategory['Science'], ("Science Question " . $i));
-			array_push($this->questionsByCategory['Sports'], ("Sports Question " . $i));
-			array_push($this->questionsByCategory['Rock'], "Rock Question " . $i);
-    	}
+        $categories = array(
+            'Pop',
+            'Science',
+            'Sports',
+            'Rock',
+        );
+
+        foreach ($categories as $category) {
+            $this->questionsByCategory[$category] = array();
+            for ($i = 0; $i < 50; $i++) {
+                array_push($this->questionsByCategory[$category], "{$category} Question {$i}");
+            }
+        }
     }
 
-	function isPlayable() {
+    function isPlayable() {
 		return ($this->howManyPlayers() >= 2);
 	}
 

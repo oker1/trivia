@@ -112,6 +112,7 @@ class Game {
 		if ($this->inPenaltyBox[$this->currentPlayer]){
 			if ($this->isGettingOutOfPenaltyBox) {
 				echoln("Answer was correct!!!!");
+                $this->inPenaltyBox[$this->currentPlayer] = false;
                 return $this->correctAnswer();
 			} else {
                 $this->setNextPlayer();

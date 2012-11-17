@@ -41,7 +41,7 @@ class GameRunnerTest extends PHPUnit_Framework_TestCase
         file_put_contents(__DIR__ . '/seeds/' . $seed, $output);
     }
 
-    public function testCantGetOutOfPenaltyBox() {
+    public function testCanGetOutOfPenaltyBox() {
         include __DIR__ . '/../Game.php';
 
         $inputMock = $this->getMockBuilder('Input')
@@ -105,11 +105,10 @@ Answer was corrent!!!!
 Pat now has 2 Gold Coins.
 Chet is the current player
 They have rolled a 5
-Chet is getting out of the penalty box
 Chet's new location is 9
 The category is Science
 Science Question 2
-Answer was correct!!!!
+Answer was corrent!!!!
 Chet now has 2 Gold Coins.
 
 END;

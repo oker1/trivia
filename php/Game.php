@@ -27,17 +27,17 @@ class Game {
         $this->inPenaltyBox  = array(0);
 
         $this->questionsByCategory = array(
-            'pop' => array(),
-            'science' => array(),
-            'sports' => array(),
-            'rock' => array(),
+            'Pop' => array(),
+            'Science' => array(),
+            'Sports' => array(),
+            'Rock' => array(),
         );
 
         for ($i = 0; $i < 50; $i++) {
-			array_push($this->questionsByCategory['pop'], "Pop Question " . $i);
-			array_push($this->questionsByCategory['science'], ("Science Question " . $i));
-			array_push($this->questionsByCategory['sports'], ("Sports Question " . $i));
-			array_push($this->questionsByCategory['rock'], "Rock Question " . $i);
+			array_push($this->questionsByCategory['Pop'], "Pop Question " . $i);
+			array_push($this->questionsByCategory['Science'], ("Science Question " . $i));
+			array_push($this->questionsByCategory['Sports'], ("Sports Question " . $i));
+			array_push($this->questionsByCategory['Rock'], "Rock Question " . $i);
     	}
     }
 
@@ -97,14 +97,7 @@ class Game {
 	}
 
 	function  askQuestion() {
-		if ($this->currentCategory() == "Pop")
-			echoln(array_shift($this->questionsByCategory['pop']));
-		if ($this->currentCategory() == "Science")
-			echoln(array_shift($this->questionsByCategory['science']));
-		if ($this->currentCategory() == "Sports")
-			echoln(array_shift($this->questionsByCategory['sports']));
-		if ($this->currentCategory() == "Rock")
-			echoln(array_shift($this->questionsByCategory['rock']));
+        echoln(array_shift($this->questionsByCategory[$this->currentCategory()]));
 	}
 
 

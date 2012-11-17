@@ -27,27 +27,9 @@ class Game {
         $this->purses  = array(0);
         $this->inPenaltyBox  = array(0);
 
-        $this->categoryMapping = array(
-            'Pop',
-            'Science',
-            'Sports',
-            'Rock',
-            'Pop',
-            'Science',
-            'Sports',
-            'Rock',
-            'Pop',
-            'Science',
-            'Sports',
-            'Rock',
-        );
+        $this->categoryMapping = array_map('trim', file(__DIR__ . '/config/places.txt'));
 
-        $categories = array(
-            'Pop',
-            'Science',
-            'Sports',
-            'Rock',
-        );
+        $categories = array_map('trim', file(__DIR__ . '/config/categories.txt'));
 
         foreach ($categories as $category) {
             $this->questionsByCategory[$category] = array();

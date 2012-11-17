@@ -9,11 +9,6 @@ class Game {
     var $purses ;
     var $inPenaltyBox ;
 
-    var $popQuestions;
-    var $scienceQuestions;
-    var $sportsQuestions;
-    var $rockQuestions;
-
     private $questionsByCategory;
     private $categoryMapping;
 
@@ -27,8 +22,13 @@ class Game {
         $this->purses  = array(0);
         $this->inPenaltyBox  = array(0);
 
-        $this->categoryMapping = array_map('trim', file(__DIR__ . '/config/places.txt'));
+        $this->initializeCategoryMapping();
 
+        $this->initializeQuestions();
+    }
+
+    private function initializeQuestions()
+    {
         $categories = array_map('trim', file(__DIR__ . '/config/categories.txt'));
 
         foreach ($categories as $category) {
@@ -39,9 +39,10 @@ class Game {
         }
     }
 
-    function isPlayable() {
-		return ($this->howManyPlayers() >= 2);
-	}
+    private function initializeCategoryMapping()
+    {
+        $this->categoryMapping = array_map('trim', file(__DIR__ . '/config/places.txt'));
+    }
 
 	function add($playerName) {
 	   array_push($this->players, $playerName);

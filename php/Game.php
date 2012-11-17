@@ -17,7 +17,7 @@ class Game {
 
     private $input;
 
-    function  __construct($input){
+    function  __construct(Input $input){
 
    	    $this->players = array();
         $this->places = array(0);
@@ -162,24 +162,14 @@ class Game {
     public function run()
     {
         do {
-            $this->step($this->roll());
+            $this->step($this->input->roll());
 
-            if ($this->answer()) {
+            if ($this->input->answer()) {
                 $notAWinner = $this->wrongAnswer();
             } else {
                 $notAWinner = $this->wasCorrectlyAnswered();
             }
         } while ($notAWinner);
-    }
-
-    private function answer()
-    {
-        return $this->input->answer();
-    }
-
-    private function roll()
-    {
-        return $this->input->roll();
     }
 }
 

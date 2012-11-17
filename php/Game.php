@@ -15,7 +15,9 @@ class Game {
     var $currentPlayer = 0;
     var $isGettingOutOfPenaltyBox;
 
-    function  __construct(){
+    private $input;
+
+    function  __construct($input){
 
    	    $this->players = array();
         $this->places = array(0);
@@ -25,6 +27,8 @@ class Game {
         $this->initializeCategoryMapping();
 
         $this->initializeQuestions();
+
+        $this->input = $input;
     }
 
     private function initializeQuestions()
@@ -170,11 +174,21 @@ class Game {
 
     private function answer()
     {
-        return rand(0, 9) == 7;
+        return $this->input->answer();
     }
 
     private function roll()
     {
+        return $this->input->roll();
+    }
+}
+
+class Input {
+    public function answer(){
+        return rand(0, 9) == 7;
+    }
+
+    public function roll(){
         return rand(0, 5) + 1;
     }
 }

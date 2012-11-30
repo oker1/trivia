@@ -42,12 +42,13 @@ public class Game {
             aGame.roll(rand.nextInt(5) + 1);
 
             if (rand.nextInt(9) == 7) {
-                winner = aGame.wrongAnswer();
+                aGame.wrongAnswer();
             } else {
-                winner = aGame.wasCorrectlyAnswered();
+                aGame.wasCorrectlyAnswered();
             }
 
-
+            winner = aGame.didPlayerWin();
+            aGame.nextPlayer();
 
         } while (!winner);
     }
@@ -138,7 +139,7 @@ public class Game {
 		return "Rock";
 	}
 
-	public boolean wasCorrectlyAnswered() {
+	public void wasCorrectlyAnswered() {
 		if (inPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
@@ -147,20 +148,7 @@ public class Game {
 						+ " now has "
 						+ purses[currentPlayer]
 						+ " Gold Coins.");
-				
-				boolean winner = didPlayerWin();
-                nextPlayer();
-				
-				return winner;
-			} else {
-                boolean winner = didPlayerWin();
-                nextPlayer();
-
-                return winner;
-            }
-			
-			
-			
+			}
 		} else {
 		
 			System.out.println("Answer was corrent!!!!");
@@ -169,23 +157,13 @@ public class Game {
 					+ " now has "
 					+ purses[currentPlayer]
 					+ " Gold Coins.");
-			
-			boolean winner = didPlayerWin();
-            nextPlayer();
-			
-			return winner;
 		}
 	}
 	
-	public boolean wrongAnswer(){
+	public void wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
 		inPenaltyBox[currentPlayer] = true;
-
-        boolean winner = didPlayerWin();
-        nextPlayer();
-
-        return winner;
 	}
 
     private void nextPlayer() {

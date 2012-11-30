@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Game {
-    private static boolean winner;
     ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses  = new int[6];
@@ -24,7 +23,7 @@ public class Game {
 			popQuestions.addLast("Pop Question " + i);
 			scienceQuestions.addLast(("Science Question " + i));
 			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+            rockQuestions.addLast("Rock Question " + i);
     	}
     }
 
@@ -37,6 +36,7 @@ public class Game {
 
         Random rand = new Random(seed);
 
+        boolean winner;
         do {
 
             aGame.roll(rand.nextInt(5) + 1);
@@ -52,14 +52,6 @@ public class Game {
 
         } while (!winner);
     }
-
-    public String createRockQuestion(int index){
-		return "Rock Question " + index;
-	}
-	
-	public boolean isPlayable() {
-		return (howManyPlayers() >= 2);
-	}
 
 	public boolean add(String playerName) {
 		

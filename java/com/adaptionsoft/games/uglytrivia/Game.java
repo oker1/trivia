@@ -2,8 +2,10 @@ package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class Game {
+    private static boolean notAWinner;
     ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses  = new int[6];
@@ -26,7 +28,31 @@ public class Game {
     	}
     }
 
-	public String createRockQuestion(int index){
+    public static void run(long seed) {
+        Game aGame = new Game();
+
+        aGame.add("Chet");
+        aGame.add("Pat");
+        aGame.add("Sue");
+
+        Random rand = new Random(seed);
+
+        do {
+
+            aGame.roll(rand.nextInt(5) + 1);
+
+            if (rand.nextInt(9) == 7) {
+                notAWinner = aGame.wrongAnswer();
+            } else {
+                notAWinner = aGame.wasCorrectlyAnswered();
+            }
+
+
+
+        } while (notAWinner);
+    }
+
+    public String createRockQuestion(int index){
 		return "Rock Question " + index;
 	}
 	

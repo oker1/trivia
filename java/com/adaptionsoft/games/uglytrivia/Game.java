@@ -1,8 +1,6 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Random;
 
 public class Game {
@@ -11,23 +9,9 @@ public class Game {
     int[] purses = new int[6];
     boolean[] inPenaltyBox = new boolean[6];
 
-    HashMap<String, LinkedList<String>> questions = new HashMap<String, LinkedList<String>>();
-
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
-
-    public Game() {
-        questions.put("Pop", new LinkedList<String>());
-        questions.put("Science", new LinkedList<String>());
-        questions.put("Sports", new LinkedList<String>());
-        questions.put("Rock", new LinkedList<String>());
-
-        for (String category : questions.keySet()) {
-            for (int i = 0; i < 50; i++) {
-                questions.get(category).addLast(category + " Question " + i);
-            }
-        }
-    }
+    final Questions questions = new Questions();
 
     public static void run(long seed) {
         Game aGame = new Game();
@@ -143,7 +127,7 @@ public class Game {
     }
 
     private void askQuestion() {
-        System.out.println(questions.get(currentCategory()).removeFirst());
+        System.out.println(questions.getQuestion(currentCategory()));
     }
 
     private String currentCategory() {

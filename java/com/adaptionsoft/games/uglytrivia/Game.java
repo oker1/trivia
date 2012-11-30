@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Game {
-    private static boolean notAWinner;
+    private static boolean winner;
     ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses  = new int[6];
@@ -42,14 +42,14 @@ public class Game {
             aGame.roll(rand.nextInt(5) + 1);
 
             if (rand.nextInt(9) == 7) {
-                notAWinner = aGame.wrongAnswer();
+                winner = aGame.wrongAnswer();
             } else {
-                notAWinner = aGame.wasCorrectlyAnswered();
+                winner = aGame.wasCorrectlyAnswered();
             }
 
 
 
-        } while (notAWinner);
+        } while (!winner);
     }
 
     public String createRockQuestion(int index){
@@ -153,9 +153,11 @@ public class Game {
 				
 				return winner;
 			} else {
+                boolean winner = didPlayerWin();
                 nextPlayer();
-				return true;
-			}
+
+                return winner;
+            }
 			
 			
 			
@@ -180,8 +182,10 @@ public class Game {
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
 		inPenaltyBox[currentPlayer] = true;
 
+        boolean winner = didPlayerWin();
         nextPlayer();
-		return true;
+
+        return winner;
 	}
 
     private void nextPlayer() {
@@ -191,6 +195,6 @@ public class Game {
 
 
     private boolean didPlayerWin() {
-		return !(purses[currentPlayer] == 6);
+		return (!inPenaltyBox[currentPlayer] || isGettingOutOfPenaltyBox) && purses[currentPlayer] == 6;
 	}
 }

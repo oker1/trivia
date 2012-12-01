@@ -68,7 +68,7 @@ public class Game {
                 System.out.println(players.get(currentPlayer)
                         + "'s new location is "
                         + board.getPlaceOfPlayer(currentPlayer));
-                System.out.println("The category is " + board.currentCategory(currentPlayer));
+
                 askQuestion();
             } else {
                 System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
@@ -81,7 +81,7 @@ public class Game {
             System.out.println(players.get(currentPlayer)
                     + "'s new location is "
                     + board.getPlaceOfPlayer(currentPlayer));
-            System.out.println("The category is " + board.currentCategory(currentPlayer));
+
             askQuestion();
         }
     }
@@ -90,19 +90,11 @@ public class Game {
         if (inPenaltyBox[currentPlayer]) {
             if (isGettingOutOfPenaltyBox) {
                 System.out.println("Answer was correct!!!!");
-                purses[currentPlayer]++;
-                System.out.println(players.get(currentPlayer)
-                        + " now has "
-                        + purses[currentPlayer]
-                        + " Gold Coins.");
+                addCoin();
             }
         } else {
             System.out.println("Answer was corrent!!!!");
-            purses[currentPlayer]++;
-            System.out.println(players.get(currentPlayer)
-                    + " now has "
-                    + purses[currentPlayer]
-                    + " Gold Coins.");
+            addCoin();
         }
     }
 
@@ -122,6 +114,15 @@ public class Game {
     }
 
     private void askQuestion() {
+        System.out.println("The category is " + board.currentCategory(currentPlayer));
         System.out.println(questions.getQuestion(board.currentCategory(currentPlayer)));
+    }
+
+    private void addCoin() {
+        purses[currentPlayer]++;
+        System.out.println(players.get(currentPlayer)
+                + " now has "
+                + purses[currentPlayer]
+                + " Gold Coins.");
     }
 }

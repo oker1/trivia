@@ -3,19 +3,16 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.ArrayList;
 
 public class Players {
-    ArrayList<String> players = new ArrayList<String>();
-    int[] purses = new int[6];
-    boolean[] inPenaltyBox = new boolean[6];
-    boolean isGettingOutOfPenaltyBox;
+    ArrayList<Player> players = new ArrayList<Player>();
     int currentPlayer = 0;
+    boolean isGettingOutOfPenaltyBox;
+    boolean[] inPenaltyBox = new boolean[6];
 
     public Players() {
     }
 
     void addPlayer(String playerName) {
-        players.add(playerName);
-        purses[howManyPlayers()] = 0;
-        inPenaltyBox[howManyPlayers()] = false;
+        players.add(new Player(playerName));
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + howManyPlayers());
@@ -35,23 +32,15 @@ public class Players {
     }
 
     String getPlayerName(int player) {
-        return players.get(player);
-    }
-
-    private boolean hasEnoughCoins() {
-        return purses[currentPlayer()] == 6;
+        return players.get(player).getName();
     }
 
     public void addCoin(int player) {
-        purses[player]++;
-        System.out.println(getPlayerName(player)
-                + " now has "
-                + purses[player]
-                + " Gold Coins.");
+        players.get(player).addCoin();
     }
 
     public boolean didPlayerWin() {
-        return (!inPenaltyBox[currentPlayer()] || isGettingOutOfPenaltyBox) && hasEnoughCoins();
+        return (!inPenaltyBox() || isGettingOutOfPenaltyBox()) && players.get(currentPlayer()).hasEnoughCoins();
     }
 
     public boolean inPenaltyBox() {

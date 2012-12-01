@@ -40,14 +40,18 @@ public class Game {
     }
 
     public boolean add(String playerName) {
-        players.add(playerName);
+        addPlayer(playerName);
         board.addPlayerToPlaces(howManyPlayers());
         purses[howManyPlayers()] = 0;
         inPenaltyBox[howManyPlayers()] = false;
 
         System.out.println(playerName + " was added");
-        System.out.println("They are player number " + players.size());
+        System.out.println("They are player number " + howManyPlayers());
         return true;
+    }
+
+    private void addPlayer(String playerName) {
+        players.add(playerName);
     }
 
     public int howManyPlayers() {
@@ -55,74 +59,82 @@ public class Game {
     }
 
     public void roll(int roll) {
-        System.out.println(players.get(currentPlayer) + " is the current player");
+        System.out.println(getPlayerName(currentPlayer()) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        if (inPenaltyBox[currentPlayer]) {
+        if (inPenaltyBox[currentPlayer()]) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
 
-                System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-                board.movePlayer(roll, currentPlayer);
+                System.out.println(getPlayerName(currentPlayer()) + " is getting out of the penalty box");
+                board.movePlayer(roll, currentPlayer());
 
-                System.out.println(players.get(currentPlayer)
+                System.out.println(getPlayerName(currentPlayer())
                         + "'s new location is "
-                        + board.getPlaceOfPlayer(currentPlayer));
+                        + board.getPlaceOfPlayer(currentPlayer()));
 
                 askQuestion();
             } else {
-                System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+                System.out.println(getPlayerName(currentPlayer()) + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
         } else {
 
-            board.movePlayer(roll, currentPlayer);
+            board.movePlayer(roll, currentPlayer());
 
-            System.out.println(players.get(currentPlayer)
+            System.out.println(getPlayerName(currentPlayer())
                     + "'s new location is "
-                    + board.getPlaceOfPlayer(currentPlayer));
+                    + board.getPlaceOfPlayer(currentPlayer()));
 
             askQuestion();
         }
     }
 
     public void wasCorrectlyAnswered() {
-        if (inPenaltyBox[currentPlayer]) {
+        if (inPenaltyBox[currentPlayer()]) {
             if (isGettingOutOfPenaltyBox) {
                 System.out.println("Answer was correct!!!!");
-                addCoin();
+                addCoin(currentPlayer());
             }
         } else {
             System.out.println("Answer was corrent!!!!");
-            addCoin();
+            addCoin(currentPlayer());
         }
     }
 
     public void wrongAnswer() {
         System.out.println("Question was incorrectly answered");
-        System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
-        inPenaltyBox[currentPlayer] = true;
+        System.out.println(getPlayerName(currentPlayer()) + " was sent to the penalty box");
+        inPenaltyBox[currentPlayer()] = true;
     }
 
     private void nextPlayer() {
         currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
+        if (currentPlayer() == players.size()) currentPlayer = 0;
     }
 
     private boolean didPlayerWin() {
-        return (!inPenaltyBox[currentPlayer] || isGettingOutOfPenaltyBox) && purses[currentPlayer] == 6;
+        return (!inPenaltyBox[currentPlayer()] || isGettingOutOfPenaltyBox) && purses[currentPlayer()] == 6;
     }
 
     private void askQuestion() {
-        System.out.println("The category is " + board.currentCategory(currentPlayer));
-        System.out.println(questions.getQuestion(board.currentCategory(currentPlayer)));
+        System.out.println("The category is " + board.currentCategory(currentPlayer()));
+        System.out.println(questions.getQuestion(board.currentCategory(currentPlayer())));
     }
 
-    private void addCoin() {
-        purses[currentPlayer]++;
-        System.out.println(players.get(currentPlayer)
+    private int currentPlayer() {
+        return currentPlayer;
+    }
+
+    private void addCoin(int player) {
+        purses[player]++;
+        System.out.println(getPlayerName(player)
                 + " now has "
-                + purses[currentPlayer]
+                + purses[player]
                 + " Gold Coins.");
+    }
+
+    private String getPlayerName(int player) {
+        return players.get(player);
     }
 }

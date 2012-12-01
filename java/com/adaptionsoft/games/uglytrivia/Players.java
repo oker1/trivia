@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Players {
     ArrayList<Player> players = new ArrayList<Player>();
-    private int currentPlayer;
+    private int currentPlayerId;
     Player current;
 
     public Players() {
@@ -27,14 +27,14 @@ public class Players {
     }
 
     void nextPlayer() {
-        currentPlayer++;
-        if (currentPlayer() == howManyPlayers()) currentPlayer = 0;
+        currentPlayerId++;
+        if (getCurrentPlayerId() == howManyPlayers()) currentPlayerId = 0;
 
-        current = players.get(currentPlayer);
+        current = players.get(currentPlayerId);
     }
 
-    int currentPlayer() {
-        return currentPlayer;
+    int getCurrentPlayerId() {
+        return currentPlayerId;
     }
 
     String getPlayerName(int player) {
@@ -42,8 +42,7 @@ public class Players {
     }
 
     public boolean didPlayerWin() {
-        Player player = players.get(currentPlayer());
-        return (!player.inPenaltyBox() || player.isGettingOutOfPenaltyBox()) && player.hasEnoughCoins();
+        return (!current.inPenaltyBox() || current.isGettingOutOfPenaltyBox()) && current.hasEnoughCoins();
     }
 
     public Player getCurrent() {

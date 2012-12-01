@@ -39,7 +39,7 @@ public class Game {
     }
 
     public void roll(int roll) {
-        System.out.println(players.getPlayerName(players.currentPlayer()) + " is the current player");
+        System.out.println(players.getCurrent().getName() + " is the current player");
         System.out.println("They have rolled a " + roll);
 
         if (players.getCurrent().inPenaltyBox()) {
@@ -61,11 +61,11 @@ public class Game {
     }
 
     private void movePlayer(int roll) {
-        board.movePlayer(roll, players.currentPlayer());
+        board.movePlayer(roll, players.getCurrentPlayerId());
 
-        System.out.println(players.getPlayerName(players.currentPlayer())
+        System.out.println(players.getPlayerName(players.getCurrentPlayerId())
                 + "'s new location is "
-                + board.getPlaceOfPlayer(players.currentPlayer()));
+                + board.getPlaceOfPlayer(players.getCurrentPlayerId()));
     }
 
     public void wasCorrectlyAnswered() {
@@ -86,7 +86,7 @@ public class Game {
     }
 
     private void askQuestion() {
-        System.out.println("The category is " + board.currentCategory(players.currentPlayer()));
-        System.out.println(questions.getQuestion(board.currentCategory(players.currentPlayer())));
+        System.out.println("The category is " + board.currentCategory(players.getCurrentPlayerId()));
+        System.out.println(questions.getQuestion(board.currentCategory(players.getCurrentPlayerId())));
     }
 }

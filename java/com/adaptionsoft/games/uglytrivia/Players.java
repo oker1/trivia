@@ -16,6 +16,9 @@ public class Players {
         players.add(playerName);
         purses[howManyPlayers()] = 0;
         inPenaltyBox[howManyPlayers()] = false;
+
+        System.out.println(playerName + " was added");
+        System.out.println("They are player number " + howManyPlayers());
     }
 
     public int howManyPlayers() {
@@ -24,7 +27,7 @@ public class Players {
 
     void nextPlayer() {
         currentPlayer++;
-        if (currentPlayer() == players.size()) currentPlayer = 0;
+        if (currentPlayer() == howManyPlayers()) currentPlayer = 0;
     }
 
     int currentPlayer() {
@@ -57,14 +60,17 @@ public class Players {
 
     public void putInPenaltyBox() {
         inPenaltyBox[currentPlayer()] = true;
+        System.out.println(getPlayerName(currentPlayer()) + " was sent to the penalty box");
     }
 
     public void stayInPenaltyBox() {
         isGettingOutOfPenaltyBox = false;
+        System.out.println(getPlayerName(currentPlayer()) + " is not getting out of the penalty box");
     }
 
     public void getOutOfPenaltyBox() {
         isGettingOutOfPenaltyBox = true;
+        System.out.println(getPlayerName(currentPlayer()) + " is getting out of the penalty box");
     }
 
     public boolean isGettingOutOfPenaltyBox() {

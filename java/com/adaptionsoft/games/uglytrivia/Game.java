@@ -33,13 +33,9 @@ public class Game {
         } while (!winner);
     }
 
-    public boolean add(String playerName) {
+    public void add(String playerName) {
         players.addPlayer(playerName);
         board.addPlayerToPlaces(players.howManyPlayers());
-
-        System.out.println(playerName + " was added");
-        System.out.println("They are player number " + players.howManyPlayers());
-        return true;
     }
 
     public void roll(int roll) {
@@ -50,28 +46,26 @@ public class Game {
             if (roll % 2 != 0) {
                 players.getOutOfPenaltyBox();
 
-                System.out.println(players.getPlayerName(players.currentPlayer()) + " is getting out of the penalty box");
-                board.movePlayer(roll, players.currentPlayer());
-
-                System.out.println(players.getPlayerName(players.currentPlayer())
-                        + "'s new location is "
-                        + board.getPlaceOfPlayer(players.currentPlayer()));
+                movePlayer(roll);
 
                 askQuestion();
             } else {
-                System.out.println(players.getPlayerName(players.currentPlayer()) + " is not getting out of the penalty box");
                 players.stayInPenaltyBox();
             }
         } else {
 
-            board.movePlayer(roll, players.currentPlayer());
-
-            System.out.println(players.getPlayerName(players.currentPlayer())
-                    + "'s new location is "
-                    + board.getPlaceOfPlayer(players.currentPlayer()));
+            movePlayer(roll);
 
             askQuestion();
         }
+    }
+
+    private void movePlayer(int roll) {
+        board.movePlayer(roll, players.currentPlayer());
+
+        System.out.println(players.getPlayerName(players.currentPlayer())
+                + "'s new location is "
+                + board.getPlaceOfPlayer(players.currentPlayer()));
     }
 
     public void wasCorrectlyAnswered() {
@@ -88,7 +82,6 @@ public class Game {
 
     public void wrongAnswer() {
         System.out.println("Question was incorrectly answered");
-        System.out.println(players.getPlayerName(players.currentPlayer()) + " was sent to the penalty box");
         players.putInPenaltyBox();
     }
 

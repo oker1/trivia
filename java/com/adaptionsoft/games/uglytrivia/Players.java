@@ -4,15 +4,19 @@ import java.util.ArrayList;
 
 public class Players {
     ArrayList<Player> players = new ArrayList<Player>();
-    int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
-    boolean[] inPenaltyBox = new boolean[6];
+    private int currentPlayer;
+    Player current;
 
     public Players() {
     }
 
     void addPlayer(String playerName) {
-        players.add(new Player(playerName));
+        Player player = new Player(playerName);
+
+        if (howManyPlayers() == 0) {
+            current = player;
+        }
+        players.add(player);
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + howManyPlayers());
@@ -25,6 +29,8 @@ public class Players {
     void nextPlayer() {
         currentPlayer++;
         if (currentPlayer() == howManyPlayers()) currentPlayer = 0;
+
+        current = players.get(currentPlayer);
     }
 
     int currentPlayer() {
@@ -35,34 +41,12 @@ public class Players {
         return players.get(player).getName();
     }
 
-    public void addCoin(int player) {
-        players.get(player).addCoin();
-    }
-
     public boolean didPlayerWin() {
-        return (!inPenaltyBox() || isGettingOutOfPenaltyBox()) && players.get(currentPlayer()).hasEnoughCoins();
+        Player player = players.get(currentPlayer());
+        return (!player.inPenaltyBox() || player.isGettingOutOfPenaltyBox()) && player.hasEnoughCoins();
     }
 
-    public boolean inPenaltyBox() {
-        return inPenaltyBox[currentPlayer()];
-    }
-
-    public void putInPenaltyBox() {
-        inPenaltyBox[currentPlayer()] = true;
-        System.out.println(getPlayerName(currentPlayer()) + " was sent to the penalty box");
-    }
-
-    public void stayInPenaltyBox() {
-        isGettingOutOfPenaltyBox = false;
-        System.out.println(getPlayerName(currentPlayer()) + " is not getting out of the penalty box");
-    }
-
-    public void getOutOfPenaltyBox() {
-        isGettingOutOfPenaltyBox = true;
-        System.out.println(getPlayerName(currentPlayer()) + " is getting out of the penalty box");
-    }
-
-    public boolean isGettingOutOfPenaltyBox() {
-        return isGettingOutOfPenaltyBox;
+    public Player getCurrent() {
+        return current;
     }
 }

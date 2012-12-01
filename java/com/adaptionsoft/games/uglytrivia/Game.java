@@ -42,15 +42,15 @@ public class Game {
         System.out.println(players.getPlayerName(players.currentPlayer()) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        if (players.inPenaltyBox()) {
+        if (players.getCurrent().inPenaltyBox()) {
             if (roll % 2 != 0) {
-                players.getOutOfPenaltyBox();
+                players.getCurrent().getOutOfPenaltyBox();
 
                 movePlayer(roll);
 
                 askQuestion();
             } else {
-                players.stayInPenaltyBox();
+                players.getCurrent().stayInPenaltyBox();
             }
         } else {
 
@@ -69,20 +69,20 @@ public class Game {
     }
 
     public void wasCorrectlyAnswered() {
-        if (players.inPenaltyBox()) {
-            if (players.isGettingOutOfPenaltyBox()) {
+        if (players.getCurrent().inPenaltyBox()) {
+            if (players.getCurrent().isGettingOutOfPenaltyBox()) {
                 System.out.println("Answer was correct!!!!");
-                players.addCoin(players.currentPlayer());
+                players.getCurrent().addCoin();
             }
         } else {
             System.out.println("Answer was corrent!!!!");
-            players.addCoin(players.currentPlayer());
+            players.getCurrent().addCoin();
         }
     }
 
     public void wrongAnswer() {
         System.out.println("Question was incorrectly answered");
-        players.putInPenaltyBox();
+        players.getCurrent().putInPenaltyBox();
     }
 
     private void askQuestion() {
